@@ -2,23 +2,27 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Grid } from "@mui/material";
 import Product from "./Product";
+import ErrorMessage from "./ErrorMessage";
 
 function ProductList() {
 
     const [posts, setPosts] = useState([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         axios.get('http://localhost:8080')
             .then(function (res) {
                 setPosts(res.data);
             })
-            .catch(function(error){
-                console.log(error);
-            })
+            .catch(function (error) {
+                setError(error.message);
+                console.log(error.message);
+            });
     }, []);
     return (
-      
-
+        <>
+            {/* Show an error message if there is an error when fetching data */}
+            {error && <ErrorMessage />}
             <Grid container spacing={3} sx={{ py: 3 }}>
 
                 {
@@ -42,6 +46,9 @@ function ProductList() {
                 }
 
             </Grid>
+        </>
+
+
 
     );
 }
