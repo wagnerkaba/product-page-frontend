@@ -16,7 +16,6 @@ function ProductList() {
             })
             .catch(function (error) {
                 setError(error.message);
-                console.log(error.message);
             });
     }, []);
     return (
