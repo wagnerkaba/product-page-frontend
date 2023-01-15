@@ -20,9 +20,9 @@ function HeaderProductList() {
                         variant="outlined"
                         sx={{ mr: 2 }}
                         onClick={handleClickAddButton}
-                    >Add
+                    >ADD
                     </Button>
-                    <Button variant="outlined">Mass Delete</Button>
+                    <Button variant="outlined">MASS DELETE</Button>
                 </Grid>
             </Grid>
             <Divider sx={{ mt: 1 }} />
