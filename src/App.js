@@ -1,7 +1,7 @@
 
 import { CssBaseline } from '@mui/material';
 import Home from './components/productList/Home';
-import AddProduct from './components/addProduct/AddProduct';
+import ProductAdd from './components/addProduct/ProductAdd';
 import {
   BrowserRouter,
   Route,
@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route path='add-product' element={<AddProduct/>}/>
+          <Route path='add-product' element={<ProductAdd/>}/>
         </Routes>
 
 

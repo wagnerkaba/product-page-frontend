@@ -23,7 +23,6 @@ function ProductList() {
             {/* Show an error message if there is an error when fetching data */}
             {error && <ErrorMessage />}
             <Grid container spacing={3} sx={{ py: 3 }}>
-
                 {
                     posts.map(function (product) {
                         return (
