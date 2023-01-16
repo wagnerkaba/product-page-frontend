@@ -6,7 +6,7 @@ function ProductAdd() {
     return (
         <>
             <Box sx={{ p: 3 }}>
-                <ProductForm />
+                <ProductForm/>
                 <Footer />
             </Box>
 
