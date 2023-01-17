@@ -1,7 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { Button, Grid, Typography, Divider } from "@mui/material";
 
-const HeaderProductAdd = ({onSubmit}) => {
-
+const HeaderProductAdd = ({ onSubmit }) => {
+    const navigate = useNavigate();
+    const onCancel = ()=>{
+        navigate('/', {replace: true});
+    }
 
     return (
         <>
@@ -19,7 +23,12 @@ const HeaderProductAdd = ({onSubmit}) => {
                         onClick={onSubmit}
                     >Save
                     </Button>
-                    <Button variant="outlined">Cancel</Button>
+                    <Button
+                        variant="outlined"
+                        onClick={onCancel}
+                    >
+                        Cancel
+                    </Button>
                 </Grid>
             </Grid>
             <Divider sx={{ mt: 1 }} />

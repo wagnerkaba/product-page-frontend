@@ -1,4 +1,4 @@
-import { FormControl, Grid, InputLabel, Select, TextField } from "@mui/material";
+import { FormControl, Box, InputLabel, Select, TextField } from "@mui/material";
 import React, { useState } from 'react';
 import HeaderProductAdd from "./HeaderProductAdd";
 import { useNavigate } from "react-router-dom";
@@ -39,49 +39,77 @@ function ProductForm() {
 
     }
 
-    const productData = ()=>{
-        const mainAttributes = {
-            "type": selectedOption,
-            "sku": sku,
-            "name": name,
-            "price": price,
-        };
+    const productData = () => {
 
-        const specificAttributes = {
-            'dvd': { 'size': size },
-            'book': { 'weight': weight },
-            'furniture': { 'height': height, 'width': width, 'length': length }
+        const attributes = {
+            'dvd': {
+                "productSKU": sku,
+                "name": name,
+                "price": price,
+                'size': size
+            },
+            'book': {
+                "productSKU": sku,
+                "name": name,
+                "price": price,
+                'weight': weight
+            },
+            'furniture': {
+                "productSKU": sku,
+                "name": name,
+                "price": price,
+                'height': height,
+                'width': width,
+                'length': length
+            }
         }
 
-        return {...mainAttributes,...specificAttributes[selectedOption]};
+        const typeAndAttributes = {
+            "type": selectedOption,
+            "attributes": attributes[selectedOption]
+        };
+
+        return typeAndAttributes;
     }
 
     return (
 
         <form>
             <HeaderProductAdd onSubmit={handleSubmit} />
-            <Grid container spacing={3} sx={{ py: 3 }}>
+            <Box
+                sx={{
+                    p: 3,
+                    maxWidth: 'sm',
+                    height: "100vh",
+                    display: "flex",
+                    flexDirection: 'column',
+                    mx: "auto",
+                }}
+            >
                 <TextField
                     label="SKU"
                     value={sku}
+                    margin="normal"
                     onChange={(e) => setSku(e.target.value)}
                 />
                 <TextField
                     label="Name"
                     value={name}
+                    margin="normal"
                     onChange={(e) => setName(e.target.value)}
                 />
                 <TextField
                     label="Price"
                     value={price}
+                    margin="normal"
                     onChange={(e) => setPrice(e.target.value)}
                 />
 
-                <FormControl>
+                <FormControl margin="normal">
                     <InputLabel htmlFor="select-option">Select an option</InputLabel>
                     <Select
                         native
-                        value={selectedOption}
+                        value={selectedOption}                        
                         onChange={handleSelectChange}
                         inputProps={{
                             name: 'option',
@@ -100,6 +128,7 @@ function ProductForm() {
                     <TextField
                         label="Size"
                         value={size}
+                        margin="normal"
                         onChange={(e) => setSize(e.target.value)}
                     />
                 )}
@@ -107,6 +136,7 @@ function ProductForm() {
                     <TextField
                         label="Weight"
                         value={weight}
+                        margin="normal"
                         onChange={(e) => setWeight(e.target.value)}
                     />
                 )}
@@ -115,16 +145,19 @@ function ProductForm() {
                         <TextField
                             label="Height"
                             value={height}
+                            margin="normal"
                             onChange={(e) => setHeight(e.target.value)}
                         />
                         <TextField
                             label="Width"
                             value={width}
+                            margin="normal"
                             onChange={(e) => setWidth(e.target.value)}
                         />
                         <TextField
                             label="Length"
                             value={length}
+                            margin="normal"
                             onChange={(e) => setLength(e.target.value)}
                         />
                     </>
@@ -132,7 +165,7 @@ function ProductForm() {
 
                 )}
 
-            </Grid>
+            </Box>
         </form >
 
 
