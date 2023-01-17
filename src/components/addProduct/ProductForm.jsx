@@ -74,7 +74,7 @@ function ProductForm() {
 
     return (
 
-        <form>
+        <form id="product_form">
             <HeaderProductAdd onSubmit={handleSubmit} />
             <Box
                 sx={{
@@ -91,18 +91,21 @@ function ProductForm() {
                     value={sku}
                     margin="normal"
                     onChange={(e) => setSku(e.target.value)}
+                    id="sku"
                 />
                 <TextField
                     label="Name"
                     value={name}
                     margin="normal"
                     onChange={(e) => setName(e.target.value)}
+                    id="name"
                 />
                 <TextField
                     label="Price"
                     value={price}
                     margin="normal"
                     onChange={(e) => setPrice(e.target.value)}
+                    id="price"
                 />
 
                 <FormControl margin="normal">
@@ -115,6 +118,7 @@ function ProductForm() {
                             name: 'option',
                             id: 'select-option',
                         }}
+                        id="productType"
                     >
                         <option aria-label="None" value="" />
                         <option value="book">Book</option>
@@ -126,39 +130,44 @@ function ProductForm() {
 
                 {selectedOption === 'dvd' && (
                     <TextField
-                        label="Size"
+                        label="Size (MB)"
                         value={size}
                         margin="normal"
                         onChange={(e) => setSize(e.target.value)}
+                        id="size"
                     />
                 )}
                 {selectedOption === 'book' && (
                     <TextField
-                        label="Weight"
+                        label="Weight (KG)"
                         value={weight}
                         margin="normal"
                         onChange={(e) => setWeight(e.target.value)}
+                        id="weight"
                     />
                 )}
                 {selectedOption === 'furniture' && (
                     <>
                         <TextField
-                            label="Height"
+                            label="Height (CM)"
                             value={height}
                             margin="normal"
                             onChange={(e) => setHeight(e.target.value)}
+                            id="height"
                         />
                         <TextField
-                            label="Width"
+                            label="Width (CM)"
                             value={width}
                             margin="normal"
                             onChange={(e) => setWidth(e.target.value)}
+                            id="width"
                         />
                         <TextField
-                            label="Length"
+                            label="Length (CM)"
                             value={length}
                             margin="normal"
                             onChange={(e) => setLength(e.target.value)}
+                            id="lenght"
                         />
                     </>
 
