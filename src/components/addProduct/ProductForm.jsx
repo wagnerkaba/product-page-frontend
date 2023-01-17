@@ -167,7 +167,7 @@ function ProductForm() {
                             value={length}
                             margin="normal"
                             onChange={(e) => setLength(e.target.value)}
-                            id="lenght"
+                            id="length"
                         />
                     </>
 
