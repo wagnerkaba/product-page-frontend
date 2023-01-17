@@ -116,7 +116,7 @@ function ProductForm() {
                         onChange={handleSelectChange}
                         inputProps={{
                             name: 'option',
-                            id: 'select-option',
+                            id: 'productType',
                         }}
                         id="productType"
                     >
