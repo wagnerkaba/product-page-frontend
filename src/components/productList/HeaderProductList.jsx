@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 function HeaderProductList() {
     const navigate = useNavigate();
-    const handleClickAddButton = ()=>{
-        navigate('add-product', {replace: true});
+    const handleClickAddButton = () => {
+        navigate('add-product', { replace: true });
     }
     return (
         <>
@@ -22,7 +22,12 @@ function HeaderProductList() {
                         onClick={handleClickAddButton}
                     >ADD
                     </Button>
-                    <Button variant="outlined">MASS DELETE</Button>
+                    <Button
+                        variant="outlined"
+                        id="delete-product-bin"
+                    >
+                        MASS DELETE
+                    </Button>
                 </Grid>
             </Grid>
             <Divider sx={{ mt: 1 }} />
