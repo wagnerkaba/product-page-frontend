@@ -7,7 +7,7 @@ const Product = ({ sku, name, price, size, weight, height, width, length }) => {
             <CardHeader
                 sx={{pb:0}}
                 action={
-                    <Checkbox inputProps={{ className: ".delete-checkbox" }}/>
+                    <Checkbox inputProps={{ className: "delete-checkbox" }}/>
                 }
                 
             />

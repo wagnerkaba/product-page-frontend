@@ -13,7 +13,7 @@ function ErrorMessage() {
             <Card variant="outlined" sx={{ height: '100%' }}>
                 <CardHeader
                     action={
-                        <Checkbox inputProps={{ className: ".delete-checkbox" }} />
+                        <Checkbox inputProps={{ className: "delete-checkbox" }} />
                     }
 
                 />
