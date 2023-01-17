@@ -1,6 +1,15 @@
-import { FormControl, Box, InputLabel, Select, TextField } from "@mui/material";
+import { 
+    FormControl, 
+    Box, 
+    InputLabel, 
+    Select, 
+    TextField,
+    Typography,
+    Grid,
+    Button,
+    Divider
+} from "@mui/material";
 import React, { useState } from 'react';
-import HeaderProductAdd from "./HeaderProductAdd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -15,6 +24,7 @@ function ProductForm() {
     const [height, setHeight] = useState('');
     const [width, setWidth] = useState('');
     const [length, setLength] = useState('');
+    const [error, setError] = useState({ valid: true, text: "" });
 
     const navigate = useNavigate();
 
@@ -25,17 +35,14 @@ function ProductForm() {
     const handleSubmit = async (e) => {
 
         const jsonData = productData();
-
         console.log(jsonData);
 
         try {
             await axios.post('http://localhost:8080/add-product', jsonData);
+            navigate('/', { replace: true });
         } catch (error) {
             console.error(error);
         }
-
-        navigate('/', { replace: true });
-
 
     }
 
@@ -72,10 +79,46 @@ function ProductForm() {
         return typeAndAttributes;
     }
 
+    const onCancel = ()=>{
+        navigate('/', {replace: true});
+    }
     return (
 
-        <form id="product_form">
-            <HeaderProductAdd onSubmit={handleSubmit} />
+        <Box
+            component="form"
+            id="product_form"
+            onSubmit={(event) => {
+                console.log("teste");
+                event.preventDefault();
+                handleSubmit();
+                console.log("teste2")
+
+            }}
+        >
+            <Grid container display="flex">
+                <Grid item xs={12} sm="auto">
+                    <Typography variant="h2">
+                        Product Add
+                    </Typography>
+                </Grid>
+                <Grid item container xs={12} sm justifyContent="flex-end" alignItems="center">
+
+                    <Button
+                        variant="outlined"
+                        sx={{ mr: 2 }}
+                        onClick={handleSubmit}
+                    >Save
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        onClick={onCancel}
+                    >
+                        Cancel
+                    </Button>
+                </Grid>
+            </Grid>
+            <Divider sx={{ mt: 1 }} />
+
             <Box
                 sx={{
                     p: 3,
@@ -92,6 +135,8 @@ function ProductForm() {
                     margin="normal"
                     onChange={(e) => setSku(e.target.value)}
                     id="sku"
+                    required
+                    type="text"
                 />
                 <TextField
                     label="Name"
@@ -99,6 +144,8 @@ function ProductForm() {
                     margin="normal"
                     onChange={(e) => setName(e.target.value)}
                     id="name"
+                    required
+                    type="text"
                 />
                 <TextField
                     label="Price"
@@ -106,19 +153,22 @@ function ProductForm() {
                     margin="normal"
                     onChange={(e) => setPrice(e.target.value)}
                     id="price"
+                    required
+                    type="number"
                 />
 
                 <FormControl margin="normal">
                     <InputLabel htmlFor="select-option">Select an option</InputLabel>
                     <Select
                         native
-                        value={selectedOption}                        
+                        value={selectedOption}
                         onChange={handleSelectChange}
                         inputProps={{
                             name: 'option',
                             id: 'productType',
                         }}
                         id="productType"
+                        required
                     >
                         <option aria-label="None" value="" />
                         <option value="book">Book</option>
@@ -135,6 +185,7 @@ function ProductForm() {
                         margin="normal"
                         onChange={(e) => setSize(e.target.value)}
                         id="size"
+                        type="number"
                     />
                 )}
                 {selectedOption === 'book' && (
@@ -144,6 +195,7 @@ function ProductForm() {
                         margin="normal"
                         onChange={(e) => setWeight(e.target.value)}
                         id="weight"
+                        type="number"
                     />
                 )}
                 {selectedOption === 'furniture' && (
@@ -154,6 +206,7 @@ function ProductForm() {
                             margin="normal"
                             onChange={(e) => setHeight(e.target.value)}
                             id="height"
+                            type="number"
                         />
                         <TextField
                             label="Width (CM)"
@@ -161,6 +214,7 @@ function ProductForm() {
                             margin="normal"
                             onChange={(e) => setWidth(e.target.value)}
                             id="width"
+                            type="number"
                         />
                         <TextField
                             label="Length (CM)"
@@ -168,6 +222,7 @@ function ProductForm() {
                             margin="normal"
                             onChange={(e) => setLength(e.target.value)}
                             id="length"
+                            type="number"
                         />
                     </>
 
@@ -175,18 +230,10 @@ function ProductForm() {
                 )}
 
             </Box>
-        </form >
+        </Box >
 
 
     );
 }
-
-
-
-
-
-
-
-
 
 export default ProductForm;
