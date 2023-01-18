@@ -77,8 +77,8 @@ function ProductList({refreshCallback, refresh}) {
             </Grid>
             <Divider sx={{ mt: 1 }} />
             {/* Show an error message if there is an error when fetching data */}
-            {error && <ErrorMessage message={"Sorry, there was an error fetching data."}/>}
-            {(products.length === 0 && !error) && <ErrorMessage message={"Please, add a new product."}/>}
+            {error && <ErrorMessage message={"Sorry, there was an error fetching data."} type={"error"}/>}
+            {(products.length === 0 && !error) && <ErrorMessage message={"Please, add a new product."} type={"info"}/>}
             <Grid container spacing={3} sx={{ py: 3 }}>
                 {
                     products.map(function (product) {

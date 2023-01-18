@@ -1,8 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Alert, AlertTitle } from "@mui/material";
 
 
 
-function ErrorMessage({message}) {
+function ErrorMessage({ message, type }) {
     return (
         <Box
             display="flex"
@@ -11,11 +11,9 @@ function ErrorMessage({message}) {
             sx={{ py: 10 }}
         >
 
-                    <Typography variant="h4">
-                        {message}
-                    </Typography>
-
-
+            <Alert severity={type} variant="filled">
+                {message}
+            </Alert>
         </Box>
     );
 }
