@@ -5,13 +5,12 @@ import ErrorMessage from "./ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 function ProductList({refreshCallback, refresh}) {
-    const backend_server = process.env.REACT_APP_BACKEND_SERVER;
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
 
     useEffect(() => {
-        axios.get(backend_server)
+        axios.get(process.env.REACT_APP_BACKEND_SERVER)
             .then(function (apiData) {
                 setProducts(apiData.data);
             })
@@ -37,7 +36,7 @@ function ProductList({refreshCallback, refresh}) {
     }
 
     const handleClickDeleteButton = async () => {
-        const deleteEndpoint = backend_server + '/mass-delete';
+        const deleteEndpoint = process.env.REACT_APP_BACKEND_SERVER + '/mass-delete';
         try {
             await axios.delete(deleteEndpoint, {data: {skus: selectedProducts}});
             setSelectedProducts([]);
