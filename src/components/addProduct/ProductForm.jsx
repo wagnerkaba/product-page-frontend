@@ -7,7 +7,11 @@ import {
     Typography,
     Grid,
     Button,
-    Divider
+    Divider,
+    Alert,
+    AlertTitle,
+    Collapse
+
 } from "@mui/material";
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -24,7 +28,7 @@ function ProductForm() {
     const [height, setHeight] = useState('');
     const [width, setWidth] = useState('');
     const [length, setLength] = useState('');
-
+    const [openAlert, setOpenAlert] = useState(false);
 
     const navigate = useNavigate();
 
@@ -34,9 +38,10 @@ function ProductForm() {
 
     const submitAddProduct = async (jsonData) => {
         try {
-            await axios.post('http://localhost:8080/add-product', jsonData);            
+            await axios.post('http://localhost:8080/add-product', jsonData);
             navigate('/', { replace: true });
         } catch (error) {
+            setOpenAlert(true);
             console.error(error);
         }
     }
@@ -88,6 +93,14 @@ function ProductForm() {
 
             }}
         >
+            <Collapse in={openAlert}>
+                <Alert severity="error" onClose={() => { setOpenAlert(false); }}>
+                    <AlertTitle>Error</AlertTitle>
+                    There was an error in adding product. Make sure the product SKU is unique.
+                </Alert>
+            </Collapse>
+
+
             <Grid container display="flex">
                 <Grid item xs={12} sm="auto">
                     <Typography variant="h2">
@@ -148,7 +161,7 @@ function ProductForm() {
                     id="price"
                     required
                     type="number"
-                    
+
                 />
 
                 <FormControl required margin="normal">
