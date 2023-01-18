@@ -1,8 +1,8 @@
-import { 
-    FormControl, 
-    Box, 
-    InputLabel, 
-    Select, 
+import {
+    FormControl,
+    Box,
+    InputLabel,
+    Select,
     TextField,
     Typography,
     Grid,
@@ -13,8 +13,8 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 function ProductForm() {
+
     const [selectedOption, setSelectedOption] = useState('');
     const [sku, setSku] = useState('');
     const [name, setName] = useState('');
@@ -24,7 +24,7 @@ function ProductForm() {
     const [height, setHeight] = useState('');
     const [width, setWidth] = useState('');
     const [length, setLength] = useState('');
-    const [error, setError] = useState({ valid: true, text: "" });
+
 
     const navigate = useNavigate();
 
@@ -32,18 +32,13 @@ function ProductForm() {
         setSelectedOption(event.target.value);
     };
 
-    const handleSubmit = async (e) => {
-
-        const jsonData = productData();
-        console.log(jsonData);
-
+    const submitAddProduct = async (jsonData) => {
         try {
             await axios.post('http://localhost:8080/add-product', jsonData);
             navigate('/', { replace: true });
         } catch (error) {
             console.error(error);
         }
-
     }
 
     const productData = () => {
@@ -79,8 +74,8 @@ function ProductForm() {
         return typeAndAttributes;
     }
 
-    const onCancel = ()=>{
-        navigate('/', {replace: true});
+    const onCancel = () => {
+        navigate('/', { replace: true });
     }
     return (
 
@@ -88,10 +83,8 @@ function ProductForm() {
             component="form"
             id="product_form"
             onSubmit={(event) => {
-                console.log("teste");
                 event.preventDefault();
-                handleSubmit();
-                console.log("teste2")
+                submitAddProduct(productData());
 
             }}
         >
@@ -106,7 +99,7 @@ function ProductForm() {
                     <Button
                         variant="outlined"
                         sx={{ mr: 2 }}
-                        onClick={handleSubmit}
+                        type="submit"
                     >Save
                     </Button>
                     <Button
@@ -155,9 +148,10 @@ function ProductForm() {
                     id="price"
                     required
                     type="number"
+                    
                 />
 
-                <FormControl margin="normal">
+                <FormControl required margin="normal">
                     <InputLabel htmlFor="select-option">Select an option</InputLabel>
                     <Select
                         native
@@ -168,7 +162,6 @@ function ProductForm() {
                             id: 'productType',
                         }}
                         id="productType"
-                        required
                     >
                         <option aria-label="None" value="" />
                         <option value="book">Book</option>
@@ -179,27 +172,44 @@ function ProductForm() {
                 </FormControl>
 
                 {selectedOption === 'dvd' && (
-                    <TextField
-                        label="Size (MB)"
-                        value={size}
-                        margin="normal"
-                        onChange={(e) => setSize(e.target.value)}
-                        id="size"
-                        type="number"
-                    />
+                    <>
+                        <Typography variant="caption" sx={{ mt: 2 }}>
+                            Please, provide DVD size in MB
+                        </Typography>
+                        <TextField
+                            label="Size (MB)"
+                            value={size}
+                            margin="normal"
+                            onChange={(e) => setSize(e.target.value)}
+                            id="size"
+                            type="number"
+                            required
+                        />
+                    </>
+
                 )}
                 {selectedOption === 'book' && (
-                    <TextField
-                        label="Weight (KG)"
-                        value={weight}
-                        margin="normal"
-                        onChange={(e) => setWeight(e.target.value)}
-                        id="weight"
-                        type="number"
-                    />
+                    <>
+                        <Typography variant="caption" sx={{ mt: 2 }}>
+                            Please, provide book weight in KG
+                        </Typography>
+                        <TextField
+                            label="Weight (KG)"
+                            value={weight}
+                            margin="normal"
+                            onChange={(e) => setWeight(e.target.value)}
+                            id="weight"
+                            type="number"
+                            required
+                        />
+                    </>
+
                 )}
                 {selectedOption === 'furniture' && (
                     <>
+                        <Typography variant="caption" sx={{ mt: 2 }}>
+                            Please, provide dimensions in HxWxL Format
+                        </Typography>
                         <TextField
                             label="Height (CM)"
                             value={height}
@@ -207,6 +217,7 @@ function ProductForm() {
                             onChange={(e) => setHeight(e.target.value)}
                             id="height"
                             type="number"
+                            required
                         />
                         <TextField
                             label="Width (CM)"
@@ -215,6 +226,7 @@ function ProductForm() {
                             onChange={(e) => setWidth(e.target.value)}
                             id="width"
                             type="number"
+                            required
                         />
                         <TextField
                             label="Length (CM)"
@@ -223,6 +235,7 @@ function ProductForm() {
                             onChange={(e) => setLength(e.target.value)}
                             id="length"
                             type="number"
+                            required
                         />
                     </>
 
