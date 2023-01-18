@@ -5,13 +5,13 @@ import ErrorMessage from "./ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 function ProductList({refreshCallback, refresh}) {
-
+    const backend_server = process.env.REACT_APP_BACKEND_SERVER;
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080')
+        axios.get(backend_server)
             .then(function (apiData) {
                 setProducts(apiData.data);
             })
@@ -37,8 +37,9 @@ function ProductList({refreshCallback, refresh}) {
     }
 
     const handleClickDeleteButton = async () => {
+        const deleteEndpoint = backend_server + '/mass-delete';
         try {
-            await axios.delete('http://localhost:8080/mass-delete', {data: {skus: selectedProducts}});
+            await axios.delete(deleteEndpoint, {data: {skus: selectedProducts}});
             setSelectedProducts([]);
             refreshCallback();            
         } catch (error) {
@@ -77,7 +78,7 @@ function ProductList({refreshCallback, refresh}) {
             <Divider sx={{ mt: 1 }} />
             {/* Show an error message if there is an error when fetching data */}
             {error && <ErrorMessage message={"Sorry, there was an error fetching data."}/>}
-            {products.length === 0 && <ErrorMessage message={"Please, add a new product."}/>}
+            {(products.length === 0 && !error) && <ErrorMessage message={"Please, add a new product."}/>}
             <Grid container spacing={3} sx={{ py: 3 }}>
                 {
                     products.map(function (product) {
