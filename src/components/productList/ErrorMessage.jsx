@@ -1,8 +1,8 @@
-import { Box, Card, CardContent, CardHeader, Checkbox, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 
 
-function ErrorMessage() {
+function ErrorMessage({message}) {
     return (
         <Box
             display="flex"
@@ -10,23 +10,10 @@ function ErrorMessage() {
             alignItems="center"
             sx={{ py: 10 }}
         >
-            <Card variant="outlined" sx={{ height: '100%' }}>
-                <CardHeader
-                    action={
-                        <Checkbox inputProps={{ className: "delete-checkbox" }} />
-                    }
 
-                />
-
-                <CardContent sx={{ py: 10 }}>
                     <Typography variant="h4">
-                        Sorry, there was an error fetching data.
+                        {message}
                     </Typography>
-
-                </CardContent>
-
-            </Card>
-
 
 
         </Box>

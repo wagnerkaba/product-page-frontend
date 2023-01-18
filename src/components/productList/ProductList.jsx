@@ -4,11 +4,22 @@ import { Grid, CardHeader, Checkbox, CardContent, Typography, Card, Button, Divi
 import ErrorMessage from "./ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
-function ProductList() {
+function ProductList({refreshCallback, refresh}) {
 
-    const [posts, setPosts] = useState([]);
+    const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080')
+            .then(function (apiData) {
+                setProducts(apiData.data);
+            })
+            .catch(function (error) {
+                setError(error.message);
+            });
+    }, [refresh]);
+    
 
     const navigate = useNavigate();
     const handleClickAddButton = () => {
@@ -18,25 +29,26 @@ function ProductList() {
     const handleCheckboxChange = (productSKU) => {
         if (selectedProducts.includes(productSKU)) {
             setSelectedProducts(selectedProducts.filter((id) => id !== productSKU));
+
         } else {
             setSelectedProducts([...selectedProducts, productSKU]);
         }
 
     }
 
-    const handleClickDeleteButton = () => {
-        console.log(selectedProducts);
+    const handleClickDeleteButton = async () => {
+        try {
+            await axios.delete('http://localhost:8080/mass-delete', {data: {skus: selectedProducts}});
+            setSelectedProducts([]);
+            refreshCallback();            
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    useEffect(() => {
-        axios.get('http://localhost:8080')
-            .then(function (res) {
-                setPosts(res.data);
-            })
-            .catch(function (error) {
-                setError(error.message);
-            });
-    }, []);
+
+
+
     return (
         <>
             <Grid container display="flex">
@@ -64,10 +76,11 @@ function ProductList() {
             </Grid>
             <Divider sx={{ mt: 1 }} />
             {/* Show an error message if there is an error when fetching data */}
-            {error && <ErrorMessage />}
+            {error && <ErrorMessage message={"Sorry, there was an error fetching data."}/>}
+            {products.length === 0 && <ErrorMessage message={"Please, add a new product."}/>}
             <Grid container spacing={3} sx={{ py: 3 }}>
                 {
-                    posts.map(function (product) {
+                    products.map(function (product) {
                         return (
                             <Grid item xs={12} sm={6} md={3} lg={2} key={product.sku}>
                                 <Card variant="outlined" sx={{ height: '100%' }}>

@@ -34,7 +34,7 @@ function ProductForm() {
 
     const submitAddProduct = async (jsonData) => {
         try {
-            await axios.post('http://localhost:8080/add-product', jsonData);
+            await axios.post('http://localhost:8080/add-product', jsonData);            
             navigate('/', { replace: true });
         } catch (error) {
             console.error(error);
