@@ -4,7 +4,7 @@ import { Grid, CardHeader, Checkbox, CardContent, Typography, Card, Button, Divi
 import ErrorMessage from "./ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
-function ProductList({refreshCallback, refresh}) {
+function ProductList({ refreshCallback, refresh }) {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
@@ -15,10 +15,12 @@ function ProductList({refreshCallback, refresh}) {
                 setProducts(apiData.data);
             })
             .catch(function (error) {
+                console.log(error.message);
                 setError(error.message);
             });
     }, [refresh]);
-    
+    console.log(products);
+
 
     const navigate = useNavigate();
     const handleClickAddButton = () => {
@@ -38,17 +40,13 @@ function ProductList({refreshCallback, refresh}) {
     const handleClickDeleteButton = async () => {
         const deleteEndpoint = process.env.REACT_APP_BACKEND_SERVER + '/mass-delete';
         try {
-            await axios.delete(deleteEndpoint, {data: {skus: selectedProducts}});
+            await axios.delete(deleteEndpoint, { data: { skus: selectedProducts } });
             setSelectedProducts([]);
-            refreshCallback();            
+            refreshCallback();
         } catch (error) {
             console.error(error);
         }
     }
-
-
-
-
     return (
         <>
             <Grid container display="flex">
@@ -76,11 +74,12 @@ function ProductList({refreshCallback, refresh}) {
             </Grid>
             <Divider sx={{ mt: 1 }} />
             {/* Show an error message if there is an error when fetching data */}
-            {error && <ErrorMessage message={"Sorry, there was an error fetching data."} type={"error"}/>}
-            {(products.length === 0 && !error) && <ErrorMessage message={"Please, add a new product."} type={"info"}/>}
+            {(!Array.isArray(products) || error) && <ErrorMessage message={"Sorry, there was an error fetching data."} type={"error"} />}
+            {(products.length === 0 && !error) && <ErrorMessage message={"Please, add a new product."} type={"info"} />}
+            
             <Grid container spacing={3} sx={{ py: 3 }}>
                 {
-                    products.map(function (product) {
+                    Array.isArray(products) && products.map(function (product) {
                         return (
                             <Grid item xs={12} sm={6} md={3} lg={2} key={product.sku}>
                                 <Card variant="outlined" sx={{ height: '100%' }}>
@@ -112,6 +111,7 @@ function ProductList({refreshCallback, refresh}) {
                         )
                     })
                 }
+
 
             </Grid>
         </>
