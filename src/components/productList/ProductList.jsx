@@ -8,6 +8,7 @@ function ProductList({ refreshCallback, refresh }) {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
     const [selectedProducts, setSelectedProducts] = useState([]);
+    console.log(process.env.REACT_APP_BACKEND_SERVER);
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_BACKEND_SERVER)
