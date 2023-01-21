@@ -65,12 +65,13 @@ function ProductList({ refreshCallback, refresh }) {
                         onClick={handleClickAddButton}
                     >ADD
                     </Button>
-                    <Button
+                    {/* <Button
                         variant="outlined"
                         id="delete-product-bin"
                         onClick={handleClickDeleteButton}
                     >MASS DELETE
-                    </Button>
+                    </Button> */}
+                    <button type="button" onClick={handleClickDeleteButton}>MASS DELETE</button>
                 </Grid>
             </Grid>
             <Divider sx={{ mt: 1 }} />
