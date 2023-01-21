@@ -50,6 +50,10 @@ function ProductList({ refreshCallback, refresh }) {
     }
     return (
         <>
+            <input type="checkbox" class="delete-checkbox" />
+            <input type="checkbox" class="delete-checkbox" />
+            <input type="checkbox" class="delete-checkbox" />
+
             <Grid container display="flex">
                 <Grid item xs={12} sm="auto">
                     <Typography variant="h2">
@@ -76,7 +80,7 @@ function ProductList({ refreshCallback, refresh }) {
             {/* Show an error message if there is an error when fetching data */}
             {(!Array.isArray(products) || error) && <ErrorMessage message={"Sorry, there was an error fetching data."} type={"error"} />}
             {(products.length === 0 && !error) && <ErrorMessage message={"Please, add a new product."} type={"info"} />}
-            
+
             <Grid container spacing={3} sx={{ py: 3 }}>
                 {
                     Array.isArray(products) && products.map(function (product) {
@@ -114,6 +118,7 @@ function ProductList({ refreshCallback, refresh }) {
 
 
             </Grid>
+
         </>
 
 
