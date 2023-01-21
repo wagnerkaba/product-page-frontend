@@ -37,7 +37,7 @@ function ProductForm() {
     };
 
     const submitAddProduct = async (jsonData) => {
-        const addProductEndpoint = process.env.REACT_APP_BACKEND_SERVER + '/add-product/';
+        const addProductEndpoint = process.env.REACT_APP_BACKEND_SERVER + '/add-product/index.php';
         try {
             await axios.post(addProductEndpoint, jsonData);
             navigate('/', { replace: true });
