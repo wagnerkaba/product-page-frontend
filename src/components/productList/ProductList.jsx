@@ -91,16 +91,6 @@ function ProductList({ refreshCallback, refresh }) {
                                         className="delete-checkbox"
                                         onChange={() => handleCheckboxChange(product.sku)}
                                     />
-                                    {/* <CardHeader
-                                        sx={{ pb: 0 }}
-                                        action={
-                                            <Checkbox
-                                                onChange={() => handleCheckboxChange(product.sku)}
-                                                inputProps={{ className: "delete-checkbox" }}
-                                            />
-                                        }
-
-                                    /> */}
 
                                     <CardContent sx={{ pt: 0 }}>
                                         <Typography variant="h5">{product.name}</Typography>
