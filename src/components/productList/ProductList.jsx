@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import { Grid, CardHeader, Checkbox, CardContent, Typography, Card, Button, Divider } from "@mui/material";
+import { Grid, CardContent, Typography, Card, Button, Divider } from "@mui/material";
 import ErrorMessage from "./ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
@@ -83,10 +83,15 @@ function ProductList({ refreshCallback, refresh }) {
                     Array.isArray(products) && products.map(function (product) {
                         return (
                             <Grid item xs={12} sm={6} md={3} lg={2} key={product.sku}>
-                                <input type="checkbox" sx={{display:"none"}} class="delete-checkbox"/>
+                                
                                 <Card variant="outlined" sx={{ height: '100%' }}>
-                                    
-                                    <CardHeader
+                                    <input 
+                                        type="checkbox" 
+                                        sx={{display:"none"}} 
+                                        className="delete-checkbox"
+                                        onChange={() => handleCheckboxChange(product.sku)}
+                                    />
+                                    {/* <CardHeader
                                         sx={{ pb: 0 }}
                                         action={
                                             <Checkbox
@@ -95,7 +100,7 @@ function ProductList({ refreshCallback, refresh }) {
                                             />
                                         }
 
-                                    />
+                                    /> */}
 
                                     <CardContent sx={{ pt: 0 }}>
                                         <Typography variant="h5">{product.name}</Typography>
