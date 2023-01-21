@@ -69,7 +69,7 @@ function ProductList({ refreshCallback, refresh }) {
                         id="delete-product-bin"
                         onClick={handleClickDeleteButton}
                     >
-                        MASS DELETE
+                    MASS DELETE
                     </Button>
                 </Grid>
             </Grid>
