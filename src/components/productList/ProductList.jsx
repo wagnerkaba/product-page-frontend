@@ -50,9 +50,6 @@ function ProductList({ refreshCallback, refresh }) {
     }
     return (
         <>
-            <input type="checkbox" class="delete-checkbox" />
-            <input type="checkbox" class="delete-checkbox" />
-            <input type="checkbox" class="delete-checkbox" />
 
             <Grid container display="flex">
                 <Grid item xs={12} sm="auto">
@@ -86,7 +83,9 @@ function ProductList({ refreshCallback, refresh }) {
                     Array.isArray(products) && products.map(function (product) {
                         return (
                             <Grid item xs={12} sm={6} md={3} lg={2} key={product.sku}>
+                                <input type="checkbox" sx={{display:"none"}} class="delete-checkbox"/>
                                 <Card variant="outlined" sx={{ height: '100%' }}>
+                                    
                                     <CardHeader
                                         sx={{ pb: 0 }}
                                         action={
