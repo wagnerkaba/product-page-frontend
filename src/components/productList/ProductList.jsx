@@ -39,7 +39,8 @@ function ProductList({ refreshCallback, refresh }) {
     }
 
     const handleClickDeleteButton = async () => {
-        const deleteEndpoint = process.env.REACT_APP_BACKEND_SERVER + '/mass-delete/index.php';
+        const deleteEndpoint = process.env.REACT_APP_BACKEND_SERVER + process.env.REACT_APP_DELETE_ENDPOINT;
+        console.log(deleteEndpoint);
         try {
             await axios.delete(deleteEndpoint, { data: { skus: selectedProducts } });
             setSelectedProducts([]);
